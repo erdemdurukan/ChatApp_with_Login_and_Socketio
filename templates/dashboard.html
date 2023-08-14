@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+  
+    .wrapper {
+      margin-top: 12px;
+      display: flex;
+      box-sizing: border-box;
+      padding: 32px 16px;
+      min-height: 200px;
+    }
+  
+    .wrapper > div {
+      box-sizing: border-box;
+      width: calc(50% - 32px);
+      float: left;
+      margin: 0 16px;
+      text-align: center;
+      background: rgba(0,0,0,0.8);
+      border: 0px solid #fff;
+      align-items: center;
+    }
+
+    .a {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 10px;
+    }
+  
+    body {
+        max-width: 600px;
+        margin: 0 auto;
+        color: #cec0c0;
+    }
+    </style>
+
+</head>
+
+<body>
+   
+        <h4>User: {{current_user.username}}</h4>
+        
+    
+
+    <div class="wrapper">
+        <div>
+            Public Room
+            <br>
+            <div>
+                <br>                               
+            <button type="submit"  onclick="enterroom1()">Enter </button>
+            </div>
+        </div>
+        <div>
+            Private Room
+            <br>
+                  
+            <div>                               
+                <h5 style="margin-right :100px;">Password:</h5>              
+                <input type="password" id="room2" style="width: 100px;">
+                <button type="button"  onclick="enterroom2()" >Enter </button>
+            </div>
+        </div>
+    </div>
+    
+    <a class="a"  href="{{url_for('logout')}}">Logout</a>
+  
+    <script  type="text/javascript" >
+       
+    function enterroom1() {
+        window.location.href = "room1";
+    }
+    function enterroom2() {
+        var passwordInput = document.getElementById("room2");
+        var enteredPassword = passwordInput.value;
+        if(enteredPassword==="hunter"){
+            window.location.href = "room2";
+        }      
+    }
+    </script>
+    
+</body>
+
+</html>

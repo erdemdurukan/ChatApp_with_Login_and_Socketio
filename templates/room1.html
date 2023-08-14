@@ -1,0 +1,120 @@
+ 
+{% extends 'base.html' %} {% block content %}
+    <div class="message-box">
+        <h2>Chat Room 1 </h2>
+        <div class="messages" id="messages"></div>
+        <div class="inputs">
+          <input
+            type="text"
+            rows="3"
+            placeholder="Message"
+            name="message"
+            id="message"
+          />
+          <button type="button" name="send" id="send-btn" onclick="handleClick()">
+            Send
+          </button>
+        </div>
+      </div>
+
+      <script>
+          const socket = io({autoConnect: false});
+
+          
+              let username = "{{ current_user.username }}";
+              socket.connect();
+
+              socket.on("connect", function() {
+                  socket.emit("join", username);
+              })
+
+          
+          document.getElementById("message").addEventListener("keyup", function (event) {
+              if (event.key == "Enter") {
+                  let message = document.getElementById("message").value;
+                  socket.emit("new_message", message);
+                  document.getElementById("message").value = "";
+              }
+          })
+
+          function handleClick(){
+            let message = document.getElementById("message").value;
+                  socket.emit("new_message", message);
+                  document.getElementById("message").value = "";
+
+          }
+
+        
+        
+          socket.on("chat", function(data) {
+            console.log(data)
+            let messagesDiv = document.getElementById("messages");
+          let messageContent = `
+            <div class="text">
+              <span>
+                <strong>${data.username}</strong>: ${data.message}
+              </span>
+              <span class="muted">
+                ${new Date().toLocaleString()}
+              </span>
+            </div>
+          `;
+          // Yeni mesajı mesajların içine ekle
+          messagesDiv.innerHTML += messageContent;
+          // Mesajların en altına otomatik olarak kaydır
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+          console.log(messageContent)
+              })
+
+        
+    </script>
+
+      <!-- <script type="text/javascript">
+        var socketio = io();
+        socketio.connect();
+        //console.log({current_user});
+
+
+      console.log(socketio)
+        const messages = document.getElementById("messages");
+      
+        const createMessage = (name, msg) => {
+          console.log(name)
+          console.log(msg)
+          const content = `
+          <div class="text">
+              <span>
+                  <strong>${name}</strong>: ${msg.data}
+              </span>
+              <span class="muted">
+                  ${new Date().toLocaleString()}
+              </span>
+          </div>
+          `;
+          messages.innerHTML += content;
+        };
+      
+        socketio.on("message", (data) => {
+          createMessage(data.name, data.message);
+        });
+      
+        const sendMessage = () => {
+          const message = document.getElementById("message");
+          if (message.value == "") return;
+          socketio.emit("message", { data: message.value } );
+          console.log(socketio)
+          
+          message.value = "";
+        };
+      </script>
+      {% for msg in messages %}
+      <script type="text/javascript">
+        createMessage("{{msg.name}}", "{{msg.message}}");
+      </script>
+      {% endfor %} {% endblock %} -->
+
+
+
+
+ 

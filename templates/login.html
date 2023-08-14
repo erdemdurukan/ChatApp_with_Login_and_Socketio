@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+    .container {  
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 15px;  
+        background-color: rgb(199, 207, 206); 
+        max-width: 200px; /* Set the maximum width of the container */
+        margin: 0 auto;
+        max-height: 300px;
+    }  </style>
+    
+
+</head>
+
+<body>
+  
+    <h1 style="text-align: center;" >Login Page</h1>
+
+
+    <div class="container">  
+
+    <form style="font-size: 10px;"  method="POST" action=""  >
+        {{ form.hidden_tag() }}
+        <h3>Username</h3>
+        {{ form.username }}
+        <br>
+        <h3>Password</h3>
+        {{ form.password }}
+        <br>
+        <br>
+        {{ form.submit }}
+    </form>
+
+
+    <a style="font-size: 10px; margin-left: 120px;" 
+    href="{{ url_for('register') }}">Don't you have an account? Sign Up</a>
+    
+
+</div>
+</body>
+
+</html>
